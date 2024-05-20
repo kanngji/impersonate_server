@@ -10,14 +10,22 @@ from app.utils.security import hash_password
 router = APIRouter()
 
 # MongoDB database와 user collection 참조
-db = client['your_database_name']
-user_collection = db['users']
+db = client['impersonate']
+user_collection = db['user']
 
 class UserSignUp(BaseModel):
     email: EmailStr
     password: str
     confirmPassword: str
     nickname: str
+    
+
+# hello 출력
+@router.get('/hello')
+async def hello():
+    return {"message": "Hello, World!"}
+
+
 
 @router.post('/signup')
 async def signup(user_data: UserSignUp):
@@ -31,7 +39,8 @@ async def signup(user_data: UserSignUp):
     user = User(
         email=user_data.email,
         password=hashed_password,
-        nickname=user_data.nickname
+        nickname=user_data.nickname,
+        
     )
 
     try:

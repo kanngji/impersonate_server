@@ -4,3 +4,4 @@ class User(BaseModel):
     email: EmailStr
     password: str
     nickname: str
+    
